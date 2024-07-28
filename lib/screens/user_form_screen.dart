@@ -109,12 +109,10 @@ class _UserFormScreenState extends State<UserFormScreen> {
         MaterialPageRoute(
           builder: (context) => const SimpleBarcodeScannerPage(),
         ));
-    if (res is String) {
-      setState(() {
-        barCode = res;
-      });
-      _searchProduct(res);
-    }
+    setState(() {
+      barCode = res.toString();
+    });
+    _searchProduct(res.toString());
   }
 
   @override
@@ -195,7 +193,13 @@ class _UserFormScreenState extends State<UserFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(product!.name),
+        title: Text(
+          product!.name,
+          style: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: searchProduct,
@@ -208,14 +212,24 @@ class _UserFormScreenState extends State<UserFormScreen> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const Text(
+                'Basic Details',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
               // Age Input Field
               TextFormField(
                 controller: _ageController,
-                decoration:
-                    const InputDecoration(labelText: 'Age', filled: false),
+                decoration: const InputDecoration(
+                    labelText: 'Age',
+                    filled: false,
+                    border: OutlineInputBorder()),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -228,7 +242,11 @@ class _UserFormScreenState extends State<UserFormScreen> {
               // Gender Input Field
               DropdownButtonFormField<String>(
                 value: _selectedGender,
-                decoration: const InputDecoration(labelText: 'Gender'),
+                decoration: const InputDecoration(
+                  labelText: 'Gender',
+                  filled: false,
+                  border: OutlineInputBorder(),
+                ),
                 items: <String>['Male', 'Female'].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -240,6 +258,14 @@ class _UserFormScreenState extends State<UserFormScreen> {
                     _selectedGender = newValue!;
                   });
                 },
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                'Health Conditions',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               if (_selectedGender == 'Female')
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -298,30 +324,33 @@ class _UserFormScreenState extends State<UserFormScreen> {
                     });
                   }),
               const SizedBox(height: 24.0),
-              // Submit Button
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    var value = checkProduct();
-                    // Process data
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(content: Text(value)),
-                    // );
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ResultScreen(result: value.toLowerCase()),
-                        ));
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
+              Center(
+                child:
+                    // Submit Button
+                    ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      var value = checkProduct();
+                      // Process data
+                      // ScaffoldMessenger.of(context).showSnackBar(
+                      //   SnackBar(content: Text(value)),
+                      // );
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ResultScreen(result: value.toLowerCase()),
+                          ));
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 36, vertical: 18),
+                  ),
+                  child: const Text('Check'),
                 ),
-                child: const Text('Check'),
               ),
             ],
           ),
