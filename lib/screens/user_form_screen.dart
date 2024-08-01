@@ -173,7 +173,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
                     backgroundColor: Colors.lightBlue,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 36, vertical: 20),
+                        horizontal: 36, vertical: 18),
                   ),
                   child: const Text('Try Again'),
                 ),
@@ -211,7 +211,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(32.0),
+          padding: const EdgeInsets.all(24.0),
           // crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -342,7 +342,7 @@ class _UserFormScreenState extends State<UserFormScreen> {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.lightBlue,
           foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 18),
         ),
         child: const Text('Check'),
       ),
