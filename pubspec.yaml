@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   simple_barcode_scanner: ^0.1.1
   http: ^1.2.2
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,13 @@ flutter:
     - assets/images/low.png
     - assets/images/medium.png
     - assets/images/high.png
+    - assets/images/male.png
+    - assets/images/female.png
+    - assets/images/pregnant.png
+    - assets/images/lactating.png
+    - assets/images/obese.png
+    - assets/images/diabetic.png
+    - assets/images/hypertention.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
