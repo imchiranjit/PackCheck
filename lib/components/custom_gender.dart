@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum Gender { male, female }
+import 'package:snack_food/utils.dart';
 
 class CustomGender extends StatelessWidget {
   final Gender selectedGender;

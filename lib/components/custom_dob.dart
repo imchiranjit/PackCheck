@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateOfBirthInput extends StatefulWidget {
-  final Function(int age) onChange;
-  const DateOfBirthInput({super.key, required this.onChange});
+  final Function(DateTime dob) onChange;
+  final DateTime dob;
+  const DateOfBirthInput(
+      {super.key, required this.dob, required this.onChange});
   @override
   State<DateOfBirthInput> createState() => _DateOfBirthInputState();
 }
@@ -37,6 +39,14 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
       age--;
     }
     return age;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDay = widget.dob.day;
+    _selectedMonth = _months[widget.dob.month - 1];
+    _selectedYear = widget.dob.year;
   }
 
   @override
@@ -87,6 +97,7 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
+                flex: 3,
                 child: DropdownButtonFormField<String>(
                   value: _selectedMonth,
                   items: _months.map((String month) {
@@ -98,7 +109,8 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
                   onChanged: (value) {
                     setState(() {
                       _selectedMonth = value!;
-                      widget.onChange(_calculateAge());
+                      widget.onChange(DateTime(_selectedYear,
+                          _months.indexOf(value) + 1, _selectedDay));
                     });
                   },
                   decoration: InputDecoration(
@@ -113,6 +125,7 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
                 color: Color(0xFFf6f6f6),
               ),
               Expanded(
+                flex: 2,
                 child: DropdownButtonFormField<int>(
                   value: _selectedDay,
                   items: _days.map((int day) {
@@ -124,7 +137,8 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
                   onChanged: (value) {
                     setState(() {
                       _selectedDay = value!;
-                      widget.onChange(_calculateAge());
+                      widget.onChange(DateTime(_selectedYear,
+                          _months.indexOf(_selectedMonth) + 1, value));
                     });
                   },
                   decoration: InputDecoration(
@@ -139,6 +153,7 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
                 color: Color(0xFFf6f6f6),
               ),
               Expanded(
+                flex: 2,
                 child: DropdownButtonFormField<int>(
                   value: _selectedYear,
                   items: _years.map((int year) {
@@ -150,7 +165,8 @@ class _DateOfBirthInputState extends State<DateOfBirthInput> {
                   onChanged: (value) {
                     setState(() {
                       _selectedYear = value!;
-                      widget.onChange(_calculateAge());
+                      widget.onChange(DateTime(value,
+                          _months.indexOf(_selectedMonth) + 1, _selectedDay));
                     });
                   },
                   decoration: InputDecoration(
