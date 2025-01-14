@@ -2,7 +2,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" /> 
     <application
-        android:label="snack_food"
+        android:label="Pack Check"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

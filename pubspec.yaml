@@ -1,4 +1,4 @@
-name: snack_food
+name: pack_check
 description: "PackCheck is a Flutter app that helps users discover the real nutritional information of packaged food items. By searching for a product or scanning its barcode, PackCheck provides insights on whether the product is advisable to consume and suggests a recommended serving size based on your health profile"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

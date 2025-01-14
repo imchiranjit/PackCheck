@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:snack_food/screens/product_screen.dart';
-import 'package:snack_food/screens/scan_screen.dart';
+import 'package:pack_check/screens/product_screen.dart';
+import 'package:pack_check/screens/scan_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

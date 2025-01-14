@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:snack_food/screens/login_screen.dart';
-import 'package:snack_food/screens/search_screen.dart';
-import 'package:snack_food/utils.dart';
+import 'package:pack_check/screens/login_screen.dart';
+import 'package:pack_check/screens/search_screen.dart';
+import 'package:pack_check/utils.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

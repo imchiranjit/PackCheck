@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:snack_food/screens/splash_screen.dart';
+import 'package:pack_check/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());

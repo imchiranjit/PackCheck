@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:snack_food/utils.dart';
+import 'package:pack_check/utils.dart';
 
 class CustomGender extends StatelessWidget {
   final Gender selectedGender;

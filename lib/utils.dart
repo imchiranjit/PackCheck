@@ -1,6 +1,6 @@
 // Shared preferences to store user data
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:snack_food/network.dart';
+import 'package:pack_check/network.dart';
 
 enum Gender { male, female }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:snack_food/network.dart';
-import 'package:snack_food/screens/login_screen.dart';
-import 'package:snack_food/utils.dart';
+import 'package:pack_check/network.dart';
+import 'package:pack_check/screens/login_screen.dart';
+import 'package:pack_check/utils.dart';
 
 class ProductScreen extends StatefulWidget {
   final String barcode;

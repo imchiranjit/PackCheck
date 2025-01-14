@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:snack_food/components/custom_checkbox_card.dart';
-import 'package:snack_food/components/custom_dob.dart';
-import 'package:snack_food/components/custom_gender.dart';
-import 'package:snack_food/components/custom_height.dart';
-import 'package:snack_food/components/custom_weight.dart';
-import 'package:snack_food/screens/search_screen.dart';
-import 'package:snack_food/utils.dart';
+import 'package:pack_check/components/custom_checkbox_card.dart';
+import 'package:pack_check/components/custom_dob.dart';
+import 'package:pack_check/components/custom_gender.dart';
+import 'package:pack_check/components/custom_height.dart';
+import 'package:pack_check/components/custom_weight.dart';
+import 'package:pack_check/screens/search_screen.dart';
+import 'package:pack_check/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool pop;
