@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void checkUser() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (!mounted) return;
 
@@ -41,20 +41,13 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Container(
             width: 120,
             height: 120,
-            decoration: BoxDecoration(
-                image: const DecorationImage(
-                    image: AssetImage(
-                      'assets/images/logo.jpeg',
-                    ),
-                    fit: BoxFit.cover),
-                borderRadius: BorderRadius.circular(60),
-                boxShadow: [
-                  BoxShadow(
-                      color: Theme.of(context).shadowColor.withOpacity(0.2),
-                      offset: const Offset(0, 1),
-                      blurRadius: 2,
-                      spreadRadius: 1)
-                ]),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                    'assets/images/logo.png',
+                  ),
+                  fit: BoxFit.cover),
+            ),
           )),
           Align(
             alignment: Alignment.bottomCenter,

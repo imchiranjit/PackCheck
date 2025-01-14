@@ -150,236 +150,292 @@ class _ProductScreenState extends State<ProductScreen> {
           // const SizedBox(width: 16),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: ListView(
-          children: [
-            const SizedBox(height: 24),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: result == HealthStatus.high
-                    ? Colors.red[100]
-                    : result == HealthStatus.medium
-                        ? Colors.yellow[100]
-                        : Colors.green[100],
-                borderRadius: BorderRadius.circular(32),
+      body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    product!.name,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(
+                    Icons.check,
+                    color: Colors.green[600],
+                    size: 24,
+                  ),
+                ],
               ),
-              height: 350,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.network(
-                      product!.image,
-                      loadingBuilder: (context, child, loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return CircularProgressIndicator(
-                          color: Colors.lightBlue,
-                          backgroundColor: Colors.lightBlue.withOpacity(0.2),
-                        );
-                      },
-                      width: 240,
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      result == HealthStatus.high
-                          ? 'High Risk'
+              const SizedBox(height: 24),
+
+              // Info cards row
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildInfoCard(
+                      context: context,
+                      color: result == HealthStatus.high
+                          ? Colors.redAccent.withOpacity(.2)
                           : result == HealthStatus.medium
-                              ? 'Medium Risk'
-                              : 'Low Risk',
+                              ? Colors.orangeAccent.withOpacity(.2)
+                              : Colors.greenAccent.withOpacity(.2),
+                      iconColor: result == HealthStatus.high
+                          ? Colors.redAccent
+                          : result == HealthStatus.medium
+                              ? Colors.orangeAccent
+                              : Colors.greenAccent,
+                      icon: result == HealthStatus.high
+                          ? Icons.dangerous_rounded
+                          : result == HealthStatus.medium
+                              ? Icons.warning_amber_rounded
+                              : Icons.check_circle_outline_rounded,
+                      text: result == HealthStatus.high
+                          ? 'Avoid Consumption'
+                          : result == HealthStatus.medium
+                              ? 'Consume Moderately'
+                              : 'Consume Freely',
+                      hasShadow: true,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _buildInfoCard(
+                      context: context,
+                      color: const Color(0xFFE3F2FD),
+                      iconColor: Colors.blue,
+                      icon: Icons.food_bank,
+                      text: '25g',
+                      textAlign: TextAlign.center,
+                      hasShadow: true,
+                      extraText: "Recommended Serving",
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+
+              // Health Concerns Section
+              _buildSection(
+                title: 'Health Concerns',
+                backgroundColor: const Color(0xFFFFEBEE),
+                textColor: Colors.red[700]!,
+                items: product!.negative,
+                borderColor: Colors.red[200]!,
+              ),
+              const SizedBox(height: 16),
+
+              // Benefits Section
+              _buildSection(
+                title: 'Benefits',
+                backgroundColor: const Color(0xFFE8F5E9),
+                textColor: Colors.green[700]!,
+                items: product!.positive,
+                borderColor: Colors.green[200]!,
+              ),
+              const SizedBox(height: 24),
+
+              // Nutrition Facts Section
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 2,
+                    ),
+                  ],
+                ),
+                padding: const EdgeInsets.all(18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Nutrition Facts',
                       style: TextStyle(
-                        color: result == HealthStatus.high
-                            ? Colors.red
-                            : result == HealthStatus.medium
-                                ? Colors.orange
-                                : Colors.green,
-                        fontSize: 24,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      result == HealthStatus.high
-                          ? 'This product is not healthy to eat'
-                          : result == HealthStatus.medium
-                              ? 'This product is not so healthy to eat'
-                              : 'This product is very healthy to eat',
-                      style: TextStyle(
-                        color: result == HealthStatus.high
-                            ? Colors.red
-                            : result == HealthStatus.medium
-                                ? Colors.orange
-                                : Colors.green,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ]),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.purple[100],
-                borderRadius: BorderRadius.circular(32),
-              ),
-              child: Column(children: [
-                Padding(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Nutritions',
-                          style: TextStyle(
-                            color: Colors.purple,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          product!.nutritions.quantity,
-                          style: const TextStyle(
-                            color: Colors.purple,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    )),
-                ...product!.nutritions.nutrients.entries.map(
-                  (e) => Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(e.key,
-                              style: const TextStyle(color: Colors.purple)),
-                          Text(
-                            e.value,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.purple),
-                          ),
-                        ],
-                      )),
+                    const SizedBox(height: 16),
+                    _buildNutritionTable(
+                        nutritionData: product!.nutritions.nutrients),
+                  ],
                 ),
-              ]),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.green[100],
-                borderRadius: BorderRadius.circular(32),
               ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                      child: Text(
-                        'Benefits',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    ...product!.positive.map(
-                      (e) => Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                        child: Text(
-                          e,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w400, color: Colors.green),
-                        ),
-                      ),
-                    )
-                  ]),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
+            ],
+          )),
+    );
+  }
+
+  Widget _buildInfoCard({
+    required BuildContext context,
+    required Color color,
+    required Color iconColor,
+    required IconData icon,
+    required String text,
+    String? extraText,
+    TextAlign textAlign = TextAlign.left,
+    bool hasShadow = false,
+  }) {
+    return Container(
+      height: 144,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: hasShadow
+            ? [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 2,
+                ),
+              ]
+            : null,
+      ),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             Container(
-              padding: const EdgeInsets.all(16),
+              width: 60, // Width of the circle
+              height: 60, // Height of the circle
               decoration: BoxDecoration(
-                color: Colors.red[100],
-                borderRadius: BorderRadius.circular(32),
+                color: color, // Background color
+                shape: BoxShape.circle, // Circular shape
               ),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                      child: Text(
-                        'Drawbacks',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+              child: Icon(
+                icon,
+                color: iconColor,
+                size: 32,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              text,
+              textAlign: textAlign,
+              style: TextStyle(
+                color: iconColor,
+                fontSize: 14 + (extraText != null ? 4 : 0),
+                fontWeight:
+                    (extraText != null ? FontWeight.w900 : FontWeight.w500),
+              ),
+            ),
+            extraText != null
+                ? Text(
+                    extraText,
+                    textAlign: textAlign,
+                    style: TextStyle(
+                      color: Colors.grey[500],
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
-                    ...product!.negative.map(
-                      (e) => Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                        child: Text(
-                          e,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w400, color: Colors.red),
-                        ),
-                      ),
-                    )
-                  ]),
-            ),
-            const SizedBox(
-              height: 48,
-            ),
-            // Image.asset(
-            //   result == HealthStatus.high
-            //       ? 'assets/images/high.png'
-            //       : result == HealthStatus.medium
-            //           ? 'assets/images/medium.png'
-            //           : 'assets/images/low.png',
-            //   height: 200,
-            // ),
-            // const SizedBox(height: 24),
-            // Text(
-            //   result == HealthStatus.high
-            //       ? 'Try avoiding this product'
-            //       : result == HealthStatus.medium
-            //           ? 'This product is not so healthy to eat'
-            //           : 'This product is very healthy to eat',
-            //   textAlign: TextAlign.center,
-            //   style: const TextStyle(
-            //     fontSize: 16,
-            //   ),
-            // ),
-            // const SizedBox(height: 24),
+                  )
+                : Container(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSection({
+    required String title,
+    required Color backgroundColor,
+    required Color textColor,
+    required List<String> items,
+    required Color borderColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        // color: backgroundColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: borderColor,
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 8),
+          ...items.map((item) => Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '• ',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        item,
+                        style: TextStyle(
+                          color: textColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildNutritionTable({required Map<String, String> nutritionData}) {
+    return Column(
+      children: nutritionData.entries.map((entry) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.black12,
+                width: 1,
+              ),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                entry.key,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                entry.value,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        );
+      }).toList(),
     );
   }
 }
