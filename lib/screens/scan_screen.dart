@@ -29,10 +29,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
       body: Center(
         child: Stack(
           children: [
-            Expanded(
-              flex: 4,
-              child: _buildQrView(context),
-            ),
+            _buildQrView(context),
             const Align(
               alignment: Alignment(0, -0.65),
               child: Text(
