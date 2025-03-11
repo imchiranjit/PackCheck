@@ -9,16 +9,14 @@ class Failed extends Error {}
 
 Future<Product> fetchProduct(String code) async {
   try {
-    final response = await http.get(
-        Uri.parse(
-            'https://api.jsonbin.io/v3/b/66a099c8ad19ca34f88c030f?meta=false'),
-        headers: {"X-JSON-Path": '\$[?(@.code=="$code")]'});
+    final response = await http
+        .get(Uri.parse('https://bcas.du.ac.in/code/packcheck.php?code=$code'));
     if (response.statusCode == 200) {
-      var jsonData = jsonDecode(response.body) as List<dynamic>;
+      var jsonData = jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonData.isEmpty) {
         throw NotFound();
       }
-      return Product.fromJson(jsonData[0] as Map<String, dynamic>);
+      return Product.fromJson(jsonData);
     } else {
       throw Failed();
     }
@@ -27,6 +25,59 @@ Future<Product> fetchProduct(String code) async {
     rethrow;
   } catch (e) {
     throw Failed();
+  }
+}
+
+Future<List<ProductItem>> searchProduct(String query) async {
+  try {
+    final response = await http.get(
+        Uri.parse('https://bcas.du.ac.in/code/packcheck.php?query=$query'));
+    if (response.statusCode == 200) {
+      var jsonData = jsonDecode(response.body) as List<dynamic>;
+      if (jsonData.isEmpty) {
+        throw Failed();
+      }
+      return jsonData
+          .map((e) => ProductItem.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } else {
+      throw Failed();
+    }
+    // } on NotFound {
+    //   // print("Product not found");
+    //   // rethrow;
+    //   return [];
+    // }
+  } catch (e) {
+    // throw Failed();
+    return [];
+  }
+}
+
+class ProductItem {
+  // {
+  //   "code": "8901719119118",
+  //   "name": "Parle-G",
+  //   "image": "https://www.parleproducts.com/Uploads/prdsmallimage/100prodsmall_parle-g.png",
+  // }
+  final String code;
+  final String name;
+  final String image;
+
+  const ProductItem(
+      {required this.code, required this.name, required this.image});
+
+  factory ProductItem.fromJson(Map<String, dynamic> json) {
+    try {
+      String code = json["code"];
+      String name = json["name"];
+      String image = json["image"];
+
+      return ProductItem(code: code, name: name, image: image);
+    } catch (e) {
+      print(e);
+      throw NotFound();
+    }
   }
 }
 
